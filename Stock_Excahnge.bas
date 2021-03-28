@@ -30,13 +30,13 @@ Sub stock_exchange()
     'MsgBox "Stock Symbols Placed."
     
 '------------------------------------------------
-
-    'declarations
+'declarations
         Dim min As Double
         Dim max As Double
+        
         Dim day As Long
                 day = 0
-        'reset ticker
+        'Dim ticker As Integer
             ticker = 2
        'create headings
      Cells(1, 10).Value = "Yearly Price +/-"
@@ -48,28 +48,28 @@ Sub stock_exchange()
     'set parameters
     For i = 2 To lastrow
         'conditionals
-    If Cells(i, 1).Value = Cells(i + 1, 1).Value Then
+        If Cells(i, 1).Value = Cells(i + 1, 1).Value Then
    
             day = (day + 1)
-    Else
-        If max <> 0 Then
-    'declare minimum value
-        min = Cells(i - day, 3).Value
-   'declare maximum value
-        max = Cells(i, 6).Value
-    'add value to yearly change column
-        Cells(ticker, 10).Value = (max - min)
-    'add value to percent column
-      
+            End If
+        If Cells(i, 1).Value <> Cells(i + 1, 1).Value Then
+            'declare minimum value
+            min = Cells(i - day, 3).Value
+            'declare maximum value
+            max = Cells(i, 6).Value
+            'add value to yearly change column
+            Cells(ticker, 10).Value = (max - min)
+            If Cells(i, 6).Value = 0 Then
+                End If
+        
+            If Cells(i, 6).Value <> 0 Then
+            'add value to percent column
             Cells(ticker, 11).Value = (min / max / 100)
             Cells(ticker, 11).NumberFormat = "0.00%"
+            'update ticker
+            ticker = ticker + 1
+            End If
        End If
-       If max = 0 Then
-       End If
-    
-      'update ticker
-        ticker = ticker + 1
-        End If
     Next i
     'MsgBox "Yearly Price Change Entered."
     'MsgBox "Yearly Percentage Calculated."
